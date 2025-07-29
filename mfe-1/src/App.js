@@ -1,8 +1,22 @@
 import React, { Suspense } from "react";
 import { useNavigate } from "react-router-dom";
+import Cart from "app2/App";
 
 const App = () => {
   const navigate = useNavigate();
+
+  function sendToCart() {
+    //console.log(product);
+    const event = new CustomEvent("addToCart", {
+      detail: {
+        name: "product",
+      },
+    });
+
+    window.dispatchEvent(event);
+
+    //navigate("/cart");
+  }
 
   return (
     <div>
@@ -19,10 +33,7 @@ const App = () => {
         <ul>
           <li>
             Product 1 - $10
-            <button
-              onClick={() => navigate("/cart")}
-              style={{ marginLeft: "10px" }}
-            >
+            <button onClick={sendToCart} style={{ marginLeft: "10px" }}>
               Add to Cart
             </button>
           </li>
@@ -44,6 +55,7 @@ const App = () => {
           </li>
         </ul>
       </div>
+      <Cart />
     </div>
   );
 };
